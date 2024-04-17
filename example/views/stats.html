@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betterratelimit - Stats</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+
+<body>
+    <h1>Betterratelimit - Stats</h1>
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/test">Test</a>
+        </li>
+        <li>
+            <a href="/stats">Stats</a>
+        </li>
+    </ul>
+    <div style="width: 500px;" id="chart"></div>
+    <script>
+        var options = {
+            chart: {
+                type: 'line'
+            },
+            series: [],
+            noData: {
+                text: 'Loading...'
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+        function getData() {
+            fetch("/api/stats").then(e => e.json()).then(data => {
+                chart.updateSeries(data)
+            })
+        }
+        getData()
+        setInterval(() => {
+            getData()
+        }, 2000)
+    </script>
+</body>
+
+</html>
