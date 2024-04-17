@@ -86,7 +86,7 @@ func main() {
 		}
 
 		for ts, pathStats := range input {
-			tsDif := now.Unix() - ts.Unix() // tsDif is also the index
+			tsDif := now.Unix() - ts.Unix()
 			if tsDif < int64(lastNSeconds) {
 				for path, reqs := range pathStats {
 					dataIndex := (tsDif - int64(lastNSeconds-1)) * -1
